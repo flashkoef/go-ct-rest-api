@@ -1,9 +1,8 @@
 package v1
 
 import (
-	"github.com/gin-gonic/gin"
-
 	"github.com/flashkoef/go-ct-rest-api/services/v1"
+	"github.com/gin-gonic/gin"
 )
 
 type Controller struct {
