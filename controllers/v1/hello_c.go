@@ -10,6 +10,6 @@ func NewHelloController(s *services.Service) *Controller {
 	return &Controller{serviceImpl: s}
 }
 
-func (c *Controller) HelloController(ctx *gin.Context) {
+func (c *Controller) Hello(ctx *gin.Context) {
 	c.serviceImpl.HelloService()
 }
