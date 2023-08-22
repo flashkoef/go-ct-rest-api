@@ -15,5 +15,8 @@ func NewHelloController(s *v1.Service) *Controller {
 }
 
 func (c *Controller) Hello(ctx *gin.Context) {
-	c.serviceImpl.HelloService()
+	data := c.serviceImpl.HelloService()
+	ctx.JSON(200, gin.H{
+		"message": data,
+	})
 }
