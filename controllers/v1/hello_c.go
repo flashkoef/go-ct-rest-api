@@ -1,12 +1,16 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/flashkoef/go-ct-rest-api/services/v1"
+)
 
 type Controller struct {
-	serviceImpl services.Servicer
+	serviceImpl v1.Servicer
 }
 
-func NewHelloController(s *services.Service) *Controller {
+func NewHelloController(s *v1.Service) *Controller {
 	return &Controller{serviceImpl: s}
 }
 
