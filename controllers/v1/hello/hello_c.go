@@ -1,4 +1,4 @@
-package v1
+package hello
 
 import (
 	"github.com/flashkoef/go-ct-rest-api/services/v1"
