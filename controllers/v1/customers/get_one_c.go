@@ -8,7 +8,7 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-type Controller struct{
+type Controller struct {
 	projectClient *platform.ByProjectKeyRequestBuilder
 }
 
@@ -19,7 +19,11 @@ func New(pc *platform.ByProjectKeyRequestBuilder) *Controller {
 }
 
 func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
-	customer, err := c.projectClient.Customers().Get().Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).Execute(ctx)
+	customer, err := c.projectClient.Customers().
+		Get().
+		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).
+		Execute(ctx)
+
 	if err != nil {
 		log.Fatalf("error while execute request to ctp %s", err)
 	}

@@ -11,15 +11,15 @@ type HttpServerConfig struct {
 }
 
 type CtpConfig struct {
-	ClientID string
+	ClientID     string
 	ClientSecret string
-	Scopes string
-	ProjectKey string
+	Scopes       string
+	ProjectKey   string
 }
 
 type Config struct {
 	HttpServer HttpServerConfig
-	Ctp CtpConfig
+	Ctp        CtpConfig
 }
 
 func New() *Config {
@@ -28,10 +28,10 @@ func New() *Config {
 			Port: getEnv("CI_HTTP_SERVER_PORT", "8080"),
 		},
 		Ctp: CtpConfig{
-			ClientID: getEnv("CTP_CLIENT_ID", ""),
+			ClientID:     getEnv("CTP_CLIENT_ID", ""),
 			ClientSecret: getEnv("CTP_CLIENT_SECRET", ""),
-			Scopes: getEnv("CTP_SCOPES", ""),
-			ProjectKey: getEnv("CTP_PROJECT_KEY", ""),
+			Scopes:       getEnv("CTP_SCOPES", ""),
+			ProjectKey:   getEnv("CTP_PROJECT_KEY", ""),
 		},
 	}
 }
@@ -46,12 +46,12 @@ func getEnv(key, defaultVal string) string {
 
 func getConfigParam(key string) (string, bool) {
 	readConfigFile()
-	
+
 	value, ok := viper.Get(key).(string)
 	if !ok {
-    log.Fatalf("Invalid type assertion while get a config parameter")
-  }
-	
+		log.Fatalf("Invalid type assertion while get a config parameter")
+	}
+
 	return value, ok
 }
 
