@@ -6,5 +6,5 @@ import (
 )
 
 func SetCustomersRoute(router *gin.RouterGroup, c *customers.Controller) {
-	router.GET("/customer", c.GetCustomerById)
+	router.GET("/customer", c.GetCustomerByEmail)
 }
