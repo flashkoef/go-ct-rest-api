@@ -1,6 +1,7 @@
 package customers
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +19,7 @@ func New(pc *platform.ByProjectKeyRequestBuilder) *Controller {
 }
 
 func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
-	customer, err := c.projectClient.Customers().Get().Where([]string{"email=\"test1@test.de\""}).Execute(ctx)
+	customer, err := c.projectClient.Customers().Get().Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).Execute(ctx)
 	if err != nil {
 		log.Fatalf("error while execute request to ctp %s", err)
 	}
