@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/flashkoef/go-ct-rest-api/core/models"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
@@ -28,7 +29,12 @@ func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
 		log.Fatalf("error while execute request to ctp %s", err)
 	}
 
-	ctx.JSON(200, gin.H{
-		"customer": customer.Results[0],
-	})
+	if len(customer.Results) == 0 {
+		msg := fmt.Sprintf("can't found customer with email %s", ctx.Query("email"))
+		log.Println(msg)
+		ctx.JSON(404, models.NewNotFoundRes(msg))
+		return
+	}
+
+	ctx.JSON(200, customer.Results)
 }
