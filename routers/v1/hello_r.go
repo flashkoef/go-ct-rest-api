@@ -5,6 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetHelloRoute(router *gin.RouterGroup, c *v1.Controller) {
+func SetHelloRoute(router *gin.RouterGroup, c *hello.Controller) {
 	router.GET("/hello", c.Hello)
 }
