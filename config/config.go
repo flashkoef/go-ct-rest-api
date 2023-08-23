@@ -10,14 +10,28 @@ type HttpServerConfig struct {
 	Port string
 }
 
+type CtpConfig struct {
+	ClientID string
+	ClientSecret string
+	Scopes string
+	ProjectKey string
+}
+
 type Config struct {
 	HttpServer HttpServerConfig
+	Ctp CtpConfig
 }
 
 func New() *Config {
 	return &Config{
 		HttpServer: HttpServerConfig{
 			Port: getEnv("CI_HTTP_SERVER_PORT", "8080"),
+		},
+		Ctp: CtpConfig{
+			ClientID: getEnv("CTP_CLIENT_ID", ""),
+			ClientSecret: getEnv("CTP_CLIENT_SECRET", ""),
+			Scopes: getEnv("CTP_SCOPES", ""),
+			ProjectKey: getEnv("CTP_PROJECT_KEY", ""),
 		},
 	}
 }
