@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/controllers/v1/customers"
+	"github.com/flashkoef/go-ct-rest-api/controllers/v1"
 	"github.com/gin-gonic/gin"
 )
 
