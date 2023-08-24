@@ -7,7 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CheckError(err error, ctx *gin.Context) bool {
+type CheckError struct {}
+
+func New() *CheckError {
+	return &CheckError{}
+}
+
+func (ce *CheckError) CheckError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundError:
