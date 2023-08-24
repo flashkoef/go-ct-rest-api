@@ -8,18 +8,20 @@ import (
 
 type Controller struct {
 	customerService *services.Service
+	checkError *errors.CheckError
 }
 
-func New(s *services.Service) *Controller {
+func New(s *services.Service, ce *errors.CheckError) *Controller {
 	return &Controller{
 		customerService: s,
+		checkError: ce,
 	}
 }
 
 func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
 	customer, err := c.customerService.ExecuteGetCustomerByEmailRequest(ctx)
 
-	shouldReturn := errors.CheckError(err, ctx)
+	shouldReturn := c.checkError.CheckError(err, ctx)
 	if shouldReturn {
 		return
 	}
