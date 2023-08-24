@@ -1,27 +1,26 @@
 package customers
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/flashkoef/go-ct-rest-api/core/errors"
 	"github.com/flashkoef/go-ct-rest-api/core/models"
+	"github.com/flashkoef/go-ct-rest-api/services"
 	"github.com/gin-gonic/gin"
-	"github.com/labd/commercetools-go-sdk/platform"
 )
 
 type Controller struct {
-	projectClient *platform.ByProjectKeyRequestBuilder
+	customerService *services.Service
 }
 
-func New(pc *platform.ByProjectKeyRequestBuilder) *Controller {
+func New(s *services.Service) *Controller {
 	return &Controller{
-		projectClient: pc,
+		customerService: s,
 	}
 }
 
 func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
-	customer, err := c.executeGetCustomerByEmailRequest(ctx)
+	customer, err := c.customerService.ExecuteGetCustomerByEmailRequest(ctx)
 
 	shouldReturn := c.checkError(err, ctx)
 	if shouldReturn {
@@ -31,7 +30,7 @@ func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
 	ctx.JSON(200, customer)
 }
 
-func (*Controller) checkError(err error, ctx *gin.Context) bool {
+func (c *Controller) checkError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *errors.NotFoundError:
@@ -47,25 +46,4 @@ func (*Controller) checkError(err error, ctx *gin.Context) bool {
 		}
 	}
 	return false
-}
-
-func (c *Controller) executeGetCustomerByEmailRequest(ctx *gin.Context) (platform.Customer, error) {
-	customer, err := c.projectClient.Customers().
-		Get().
-		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).
-		Execute(ctx)
-
-	if err != nil {
-		msg := fmt.Sprintf("error while execute request to ctp %s", err)
-		log.Println(msg)
-		return platform.Customer{}, errors.NewInternalError(msg, err)
-	}
-
-	if len(customer.Results) == 0 {
-		msg := fmt.Sprintf("can't found customer with email %s", ctx.Query("email"))
-		log.Println(msg)
-		return platform.Customer{}, errors.NewNotFoundError(msg)
-	}
-
-	return customer.Results[0], nil
 }
