@@ -1,4 +1,4 @@
-package customers
+package v1
 
 import (
 	"github.com/flashkoef/go-ct-rest-api/core/errors"
@@ -6,19 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Controller struct {
+type CustomersController struct {
 	customerService *services.Service
 	checkError *errors.CheckError
 }
 
-func New(s *services.Service, ce *errors.CheckError) *Controller {
-	return &Controller{
+func NewCustomersController(s *services.Service, ce *errors.CheckError) *CustomersController {
+	return &CustomersController{
 		customerService: s,
 		checkError: ce,
 	}
 }
 
-func (c *Controller) GetCustomerByEmail(ctx *gin.Context) {
+func (c *CustomersController) GetCustomerByEmail(ctx *gin.Context) {
 	customer, err := c.customerService.ExecuteGetCustomerByEmailRequest(ctx)
 
 	shouldReturn := c.checkError.CheckError(err, ctx)
