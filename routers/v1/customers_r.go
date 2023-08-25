@@ -5,6 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetCustomersRoute(router *gin.RouterGroup, c *customers.Controller) {
+func SetCustomersRoute(router *gin.RouterGroup, c *v1.CustomersController) {
 	router.GET("/customer", c.GetCustomerByEmail)
 }
