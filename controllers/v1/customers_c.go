@@ -7,14 +7,14 @@ import (
 )
 
 type CustomersController struct {
-	customerService *services.Service
-	checkError *errors.CheckError
+	customerService *services.CustomersService
+	checkError      *errors.CheckError
 }
 
-func NewCustomersController(s *services.Service, ce *errors.CheckError) *CustomersController {
+func NewCustomersController(s *services.CustomersService, ce *errors.CheckError) *CustomersController {
 	return &CustomersController{
 		customerService: s,
-		checkError: ce,
+		checkError:      ce,
 	}
 }
 

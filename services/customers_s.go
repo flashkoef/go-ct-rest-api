@@ -9,17 +9,17 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-type Service struct {
+type CustomersService struct {
 	projectClient *platform.ByProjectKeyRequestBuilder
 }
 
-func New(pc *platform.ByProjectKeyRequestBuilder) *Service {
-	return &Service{
+func New(pc *platform.ByProjectKeyRequestBuilder) *CustomersService {
+	return &CustomersService{
 		projectClient: pc,
 	}
 }
 
-func (s *Service) ExecuteGetCustomerByEmailRequest(ctx *gin.Context) (platform.Customer, error) {
+func (s *CustomersService) ExecuteGetCustomerByEmailRequest(ctx *gin.Context) (platform.Customer, error) {
 	customer, err := s.projectClient.Customers().
 		Get().
 		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).
