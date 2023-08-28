@@ -1,17 +1,17 @@
 package v1
 
 import (
-	v1 "github.com/flashkoef/go-ct-rest-api/controllers/v1"
+	controllers "github.com/flashkoef/go-ct-rest-api/controllers/v1"
 	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
 	"github.com/flashkoef/go-ct-rest-api/libs/commercetools/connector"
-	"github.com/flashkoef/go-ct-rest-api/services"
+	services "github.com/flashkoef/go-ct-rest-api/services/v1"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRoutes(rg *gin.RouterGroup) {
-	SetHelloRoute(rg, v1.NewHelloController())
+	SetHelloRoute(rg, controllers.NewHelloController())
 
-	SetCustomersRoute(rg, v1.NewCustomersController(
+	SetCustomersRoute(rg, controllers.NewCustomersController(
 		services.NewCustomerService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
 	))
