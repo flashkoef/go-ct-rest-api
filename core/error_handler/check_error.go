@@ -7,6 +7,7 @@ import (
 
 	"github.com/flashkoef/go-ct-rest-api/core/models"
 	"github.com/gin-gonic/gin"
+	"github.com/labd/commercetools-go-sdk/platform"
 )
 
 type CheckError struct{}
@@ -36,7 +37,7 @@ func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
 func (ce *CheckError) CheckCtSdkError(err error, ctx *gin.Context) (bool, error) {
 	if err != nil {
 		log.Printf("error while execute request to ctp %s", err)
-		if err.Error() == "resource not found" {
+		if err.Error() == platform.ErrNotFound.Error() {
 			msg := fmt.Sprintf("can't found customer with id %s", ctx.Param("customerID"))
 			return true, NewNotFoundErrorWithOriginalErr(msg, err.Error())
 		}
