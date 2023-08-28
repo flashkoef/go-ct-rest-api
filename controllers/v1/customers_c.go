@@ -4,16 +4,16 @@ import (
 	"net/http"
 
 	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
-	"github.com/flashkoef/go-ct-rest-api/services"
+	v1 "github.com/flashkoef/go-ct-rest-api/services/v1"
 	"github.com/gin-gonic/gin"
 )
 
 type CustomersController struct {
-	customerService *services.CustomersService
+	customerService *v1.CustomersService
 	checkError      *error_handler.CheckError
 }
 
-func NewCustomersController(s *services.CustomersService, ce *error_handler.CheckError) *CustomersController {
+func NewCustomersController(s *v1.CustomersService, ce *error_handler.CheckError) *CustomersController {
 	return &CustomersController{
 		customerService: s,
 		checkError:      ce,
