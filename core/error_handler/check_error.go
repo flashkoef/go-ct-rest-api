@@ -10,6 +10,11 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
+type ErrorHandler interface {
+	CheckInternError(err error, ctx *gin.Context) bool
+	CheckCtSdkError(err error, ctx *gin.Context) (bool, error)
+}
+
 type CheckError struct{}
 
 func New() *CheckError {
