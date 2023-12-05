@@ -9,15 +9,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRoutes(rg *gin.RouterGroup) {
-	SetHelloRoute(rg, http_handler.NewHelloController())
+func InitRoutes(routerGroup *gin.RouterGroup) {
+	SetHelloRoute(routerGroup, http_handler.NewHelloController())
 
-	SetCustomerRoute(rg, http_handler.NewCustomersController(
+	SetCustomerRoute(routerGroup, http_handler.NewCustomersController(
 		service.NewCustomerService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
 	))
 
-	SetProductRoute(rg, http_handler.NewProductController(
+	SetProductRoute(routerGroup, http_handler.NewProductController(
 		service.NewProductService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
 		mapper.NewProductMapper(),

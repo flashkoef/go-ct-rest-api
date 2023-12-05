@@ -5,6 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetProductRoute(router *gin.RouterGroup, c *http_handler.ProductController) {
-	router.GET("/product", c.GetProductBySlug)
+func SetProductRoute(router *gin.RouterGroup, httpHandler *http_handler.ProductController) {
+	router.GET("/product", httpHandler.GetProductBySlug)
 }
