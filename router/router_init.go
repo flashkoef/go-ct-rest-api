@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/controllers"
+	"github.com/flashkoef/go-ct-rest-api/http_handler"
 	"github.com/flashkoef/go-ct-rest-api/error_handler"
 	"github.com/flashkoef/go-ct-rest-api/mapper"
 	"github.com/flashkoef/go-ct-rest-api/libs/commercetools/connector"
@@ -10,14 +10,14 @@ import (
 )
 
 func InitRoutes(rg *gin.RouterGroup) {
-	SetHelloRoute(rg, controllers.NewHelloController())
+	SetHelloRoute(rg, http_handler.NewHelloController())
 
-	SetCustomerRoute(rg, controllers.NewCustomersController(
+	SetCustomerRoute(rg, http_handler.NewCustomersController(
 		services.NewCustomerService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
 	))
 
-	SetProductRoute(rg, controllers.NewProductController(
+	SetProductRoute(rg, http_handler.NewProductController(
 		services.NewProductService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
 		mapper.NewProductMapper(),

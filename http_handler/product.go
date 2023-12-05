@@ -1,4 +1,4 @@
-package controllers
+package http_handler
 
 import (
 	"net/http"
@@ -11,19 +11,19 @@ import (
 
 type ProductController struct {
 	productService services.ProductServicer
-	checkError error_handler.ErrorHandler
-	productMapper mapper.IProductMapper
+	checkError     error_handler.ErrorHandler
+	productMapper  mapper.IProductMapper
 }
 
 func NewProductController(
-	s services.ProductServicer, 
-	ce error_handler.ErrorHandler, 
+	s services.ProductServicer,
+	ce error_handler.ErrorHandler,
 	pm mapper.IProductMapper,
 ) *ProductController {
 	return &ProductController{
 		productService: s,
-		checkError: ce,
-		productMapper: pm,
+		checkError:     ce,
+		productMapper:  pm,
 	}
 }
 
