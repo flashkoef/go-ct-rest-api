@@ -1,4 +1,4 @@
-package services
+package service
 
 import (
 	"fmt"
@@ -14,13 +14,13 @@ type ProductServicer interface {
 
 type ProductService struct {
 	projectClient *platform.ByProjectKeyRequestBuilder
-	errorHandler error_handler.ErrorHandler
+	errorHandler  error_handler.ErrorHandler
 }
 
 func NewProductService(pc *platform.ByProjectKeyRequestBuilder, eh error_handler.ErrorHandler) *ProductService {
 	return &ProductService{
 		projectClient: pc,
-		errorHandler: eh,
+		errorHandler:  eh,
 	}
 }
 
@@ -29,7 +29,7 @@ func (s *ProductService) GetProductBySlug(ctx *gin.Context) (platform.ProductPro
 		Get().
 		Where([]string{fmt.Sprintf("slug(%s=\"%s\")", ctx.Query("language"), ctx.Query("slug"))}).
 		Execute(ctx)
-	
+
 	shouldReturn, err := s.errorHandler.CheckCtSdkErrorForPagedResponse(ctSdkErr, result, ctx)
 	if shouldReturn {
 		return platform.ProductProjection{}, err

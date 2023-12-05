@@ -1,4 +1,4 @@
-package services
+package service
 
 import (
 	"fmt"
@@ -40,6 +40,17 @@ func (s *CustomerService) ExecuteGetCustomerByEmailRequest(ctx *gin.Context) (pl
 	return result.Results[0], nil
 }
 
+func (s *CustomerService) ExecuteGetCustomerByIdRequest(ctx *gin.Context) (*platform.Customer, error) {
+	customer, err := s.projectClient.Customers().WithId(ctx.Param("customerID")).Get().Execute(ctx)
+
+	shouldReturn, err := s.errorHandler.CheckCtSdkErrorForNonPagedResponse(err, ctx)
+	if shouldReturn {
+		return &platform.Customer{}, err
+	}
+
+	return customer, nil
+}
+
 func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin.Context) (bool, error) {
 	if err != nil {
 		msg := fmt.Sprintf("error while execute request to ctp %s", err)
@@ -53,15 +64,4 @@ func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin
 		return true, error_handler.NewNotFoundError(msg)
 	}
 	return false, nil
-}
-
-func (s *CustomerService) ExecuteGetCustomerByIdRequest(ctx *gin.Context) (*platform.Customer, error) {
-	customer, err := s.projectClient.Customers().WithId(ctx.Param("customerID")).Get().Execute(ctx)
-
-	shouldReturn, err := s.errorHandler.CheckCtSdkErrorForNonPagedResponse(err, ctx)
-	if shouldReturn {
-		return &platform.Customer{}, err
-	}
-
-	return customer, nil
 }
