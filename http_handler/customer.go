@@ -21,7 +21,7 @@ func NewCustomersController(s service.CustomerServicer, ce error_handler.ErrorHa
 }
 
 func (c *CustomerController) GetCustomerByEmail(ctx *gin.Context) {
-	customer, err := c.customerService.ExecuteGetCustomerByEmailRequest(ctx)
+	customer, err := c.customerService.GetCustomerByEmail(ctx)
 
 	shouldReturn := c.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
@@ -32,7 +32,7 @@ func (c *CustomerController) GetCustomerByEmail(ctx *gin.Context) {
 }
 
 func (c *CustomerController) GetCustomerByID(ctx *gin.Context) {
-	customer, err := c.customerService.ExecuteGetCustomerByIdRequest(ctx)
+	customer, err := c.customerService.GetCustomerById(ctx)
 
 	shouldReturn := c.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
