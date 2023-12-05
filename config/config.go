@@ -33,7 +33,7 @@ func getEnvParamByKey(key string) (string, bool) {
 
 	value, ok := viper.Get(key).(string)
 	if !ok {
-		log.Fatalf("Invalid type assertion while get a environment parameter")
+		log.Fatalf("invalid type assertion while get a environment parameter")
 	}
 
 	return value, ok
@@ -44,6 +44,6 @@ func readEnvFile() {
 	
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Fatalf("Error while reading environment file %s", err)
+		log.Fatalf("error while reading environment file %s", err)
 	}
 }
