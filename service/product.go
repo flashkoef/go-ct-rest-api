@@ -11,13 +11,16 @@ type ProductServicer interface {
 }
 
 type ProductService struct {
-	projectClient *platform.ByProjectKeyRequestBuilder
-	errorHandler  error_handler.ErrorHandler
+	ctClient     *platform.ByProjectKeyRequestBuilder
+	errorHandler error_handler.ErrorHandler
 }
 
-func NewProductService(pc *platform.ByProjectKeyRequestBuilder, eh error_handler.ErrorHandler) *ProductService {
+func NewProductService(
+	ctClient *platform.ByProjectKeyRequestBuilder,
+	errorHandler error_handler.ErrorHandler,
+) *ProductService {
 	return &ProductService{
-		projectClient: pc,
-		errorHandler:  eh,
+		ctClient:     ctClient,
+		errorHandler: errorHandler,
 	}
 }

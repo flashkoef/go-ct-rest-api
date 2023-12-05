@@ -9,8 +9,8 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (s *CustomerService) GetCustomerByEmail(ctx *gin.Context) (platform.Customer, error) {
-	result, ctSdkErr := s.projectClient.Customers().
+func (service *CustomerService) GetCustomerByEmail(ctx *gin.Context) (platform.Customer, error) {
+	result, ctSdkErr := service.ctClient.Customers().
 		Get().
 		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).
 		Execute(ctx)
@@ -35,5 +35,6 @@ func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin
 		log.Println(msg)
 		return true, error_handler.NewNotFoundError(msg)
 	}
+
 	return false, nil
 }

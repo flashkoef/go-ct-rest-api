@@ -5,10 +5,10 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (s *CustomerService) GetCustomerById(ctx *gin.Context) (*platform.Customer, error) {
-	customer, err := s.projectClient.Customers().WithId(ctx.Param("customerID")).Get().Execute(ctx)
+func (service *CustomerService) GetCustomerById(ctx *gin.Context) (*platform.Customer, error) {
+	customer, err := service.ctClient.Customers().WithId(ctx.Param("customerID")).Get().Execute(ctx)
 
-	shouldReturn, err := s.errorHandler.CheckCtSdkErrorForNonPagedResponse(err, ctx)
+	shouldReturn, err := service.errorHandler.CheckCtSdkErrorForNonPagedResponse(err, ctx)
 	if shouldReturn {
 		return &platform.Customer{}, err
 	}

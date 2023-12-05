@@ -7,13 +7,13 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (s *ProductService) GetProductBySlug(ctx *gin.Context) (platform.ProductProjection, error) {
-	result, ctSdkErr := s.projectClient.ProductProjections().
+func (service *ProductService) GetProductBySlug(ctx *gin.Context) (platform.ProductProjection, error) {
+	result, ctSdkErr := service.ctClient.ProductProjections().
 		Get().
 		Where([]string{fmt.Sprintf("slug(%s=\"%s\")", ctx.Query("language"), ctx.Query("slug"))}).
 		Execute(ctx)
 
-	shouldReturn, err := s.errorHandler.CheckCtSdkErrorForPagedResponse(ctSdkErr, result, ctx)
+	shouldReturn, err := service.errorHandler.CheckCtSdkErrorForPagedResponse(ctSdkErr, result, ctx)
 	if shouldReturn {
 		return platform.ProductProjection{}, err
 	}
