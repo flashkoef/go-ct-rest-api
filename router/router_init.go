@@ -5,7 +5,7 @@ import (
 	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
 	"github.com/flashkoef/go-ct-rest-api/core/mapper"
 	"github.com/flashkoef/go-ct-rest-api/libs/commercetools/connector"
-	services "github.com/flashkoef/go-ct-rest-api/services/v1"
+	"github.com/flashkoef/go-ct-rest-api/services"
 	"github.com/gin-gonic/gin"
 )
 

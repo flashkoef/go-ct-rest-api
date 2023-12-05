@@ -5,18 +5,18 @@ import (
 
 	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
 	"github.com/flashkoef/go-ct-rest-api/core/mapper"
-	v1 "github.com/flashkoef/go-ct-rest-api/services/v1"
+	"github.com/flashkoef/go-ct-rest-api/services"
 	"github.com/gin-gonic/gin"
 )
 
 type ProductController struct {
-	productService v1.ProductServicer
+	productService services.ProductServicer
 	checkError error_handler.ErrorHandler
 	productMapper mapper.IProductMapper
 }
 
 func NewProductController(
-	s v1.ProductServicer, 
+	s services.ProductServicer, 
 	ce error_handler.ErrorHandler, 
 	pm mapper.IProductMapper,
 ) *ProductController {
