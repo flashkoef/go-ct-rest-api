@@ -5,23 +5,23 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-type IProductMapper interface {
+type ProductMapperPort interface {
 	MapToProduct(pp platform.ProductProjection) *model.Product
 }
 
-type ProductMapper struct {}
+type ProductMapper struct{}
 
 func NewProductMapper() *ProductMapper {
 	return &ProductMapper{}
 }
 
-func (pm *ProductMapper) MapToProduct(pp platform.ProductProjection) *model.Product {
+func (pm *ProductMapper) MapToProduct(productProjection platform.ProductProjection) *model.Product {
 	return &model.Product{
-		ID:          pp.ID,
-		Name:        pp.Name["de"],
-		Description: (*pp.Description)["de"],
-		Sku:         *pp.MasterVariant.Sku,
-		Attributes: mapToAttributes(pp.MasterVariant.Attributes),
+		ID:          productProjection.ID,
+		Name:        productProjection.Name["de"],
+		Description: (*productProjection.Description)["de"],
+		Sku:         *productProjection.MasterVariant.Sku,
+		Attributes:  mapToAttributes(productProjection.MasterVariant.Attributes),
 	}
 }
 
@@ -30,5 +30,6 @@ func mapToAttributes(attributes []platform.Attribute) []model.Attribute {
 	for _, attribute := range attributes {
 		result = append(result, model.Attribute{Name: attribute.Name, Value: attribute.Value})
 	}
+
 	return result
 }

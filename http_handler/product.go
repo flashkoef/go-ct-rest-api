@@ -12,13 +12,13 @@ import (
 type ProductController struct {
 	productService service.ProductServicer
 	checkError     error_handler.ErrorHandler
-	productMapper  mapper.IProductMapper
+	productMapper  mapper.ProductMapperPort
 }
 
 func NewProductController(
 	s service.ProductServicer,
 	ce error_handler.ErrorHandler,
-	pm mapper.IProductMapper,
+	pm mapper.ProductMapperPort,
 ) *ProductController {
 	return &ProductController{
 		productService: s,
