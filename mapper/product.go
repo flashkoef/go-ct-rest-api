@@ -1,12 +1,12 @@
 package mapper
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/models"
+	"github.com/flashkoef/go-ct-rest-api/model"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
 type IProductMapper interface {
-	MapToProduct(pp platform.ProductProjection) *models.Product
+	MapToProduct(pp platform.ProductProjection) *model.Product
 }
 
 type ProductMapper struct {}
@@ -15,8 +15,8 @@ func NewProductMapper() *ProductMapper {
 	return &ProductMapper{}
 }
 
-func (pm *ProductMapper) MapToProduct(pp platform.ProductProjection) *models.Product {
-	return &models.Product{
+func (pm *ProductMapper) MapToProduct(pp platform.ProductProjection) *model.Product {
+	return &model.Product{
 		ID:          pp.ID,
 		Name:        pp.Name["de"],
 		Description: (*pp.Description)["de"],
@@ -25,10 +25,10 @@ func (pm *ProductMapper) MapToProduct(pp platform.ProductProjection) *models.Pro
 	}
 }
 
-func mapToAttributes(attributes []platform.Attribute) []models.Attribute {
-	result := []models.Attribute{}
+func mapToAttributes(attributes []platform.Attribute) []model.Attribute {
+	result := []model.Attribute{}
 	for _, attribute := range attributes {
-		result = append(result, models.Attribute{Name: attribute.Name, Value: attribute.Value})
+		result = append(result, model.Attribute{Name: attribute.Name, Value: attribute.Value})
 	}
 	return result
 }

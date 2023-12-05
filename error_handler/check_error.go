@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/flashkoef/go-ct-rest-api/models"
+	"github.com/flashkoef/go-ct-rest-api/model"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
@@ -26,14 +26,14 @@ func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundError:
-			ctx.JSON(http.StatusNotFound, models.NewErrorResponse(http.StatusNotFound, NotFoundErr, err))
+			ctx.JSON(http.StatusNotFound, model.NewErrorResponse(http.StatusNotFound, NotFoundErr, err))
 			return true
 		case *InternalError:
-			ctx.JSON(http.StatusInternalServerError, models.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
+			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
 			return true
 		default:
 			log.Printf("oops, this was unexpected: %s", e)
-			ctx.JSON(http.StatusInternalServerError, models.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
+			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
 			return true
 		}
 	}
