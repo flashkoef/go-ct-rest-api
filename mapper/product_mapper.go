@@ -1,7 +1,7 @@
 package mapper
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/core/models"
+	"github.com/flashkoef/go-ct-rest-api/models"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 

@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
-	"github.com/flashkoef/go-ct-rest-api/core/mapper"
+	"github.com/flashkoef/go-ct-rest-api/error_handler"
+	"github.com/flashkoef/go-ct-rest-api/mapper"
 	"github.com/flashkoef/go-ct-rest-api/services"
 	"github.com/gin-gonic/gin"
 )

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/flashkoef/go-ct-rest-api/core/models"
+	"github.com/flashkoef/go-ct-rest-api/models"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
 )

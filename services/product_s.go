@@ -3,7 +3,7 @@ package services
 import (
 	"fmt"
 
-	"github.com/flashkoef/go-ct-rest-api/core/error_handler"
+	"github.com/flashkoef/go-ct-rest-api/error_handler"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
