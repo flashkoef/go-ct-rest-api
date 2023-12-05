@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/flashkoef/go-ct-rest-api/config"
-	router "github.com/flashkoef/go-ct-rest-api/routers/v1"
+	"github.com/flashkoef/go-ct-rest-api/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +14,7 @@ var engine *gin.Engine
 
 func init() {
 	engine = gin.New()
-	routerGroup := engine.Group("/v1")
+	routerGroup := engine.Group("")
 	router.InitRoutes(routerGroup)
 }
 
