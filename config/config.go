@@ -9,40 +9,41 @@ import (
 func New() *Config {
 	return &Config{
 		HttpServer: HttpServerConfig{
-			Port: getEnv("CI_HTTP_SERVER_PORT", "8080"),
+			Port: getEnvValueStringByKey("CI_HTTP_SERVER_PORT", "8080"),
 		},
 		Ctp: CtpConfig{
-			ClientID:     getEnv("CTP_CLIENT_ID", ""),
-			ClientSecret: getEnv("CTP_CLIENT_SECRET", ""),
-			Scopes:       getEnv("CTP_SCOPES", ""),
-			ProjectKey:   getEnv("CTP_PROJECT_KEY", ""),
+			ClientID:     getEnvValueStringByKey("CTP_CLIENT_ID", ""),
+			ClientSecret: getEnvValueStringByKey("CTP_CLIENT_SECRET", ""),
+			Scopes:       getEnvValueStringByKey("CTP_SCOPES", ""),
+			ProjectKey:   getEnvValueStringByKey("CTP_PROJECT_KEY", ""),
 		},
 	}
 }
 
-func getEnv(key, defaultVal string) string {
-	if value, exists := getConfigParam(key); exists {
+func getEnvValueStringByKey(key, defaultVal string) string {
+	if value, exists := getEnvParamByKey(key); exists {
 		return value
 	}
 
 	return defaultVal
 }
 
-func getConfigParam(key string) (string, bool) {
-	readConfigFile()
+func getEnvParamByKey(key string) (string, bool) {
+	readEnvFile()
 
 	value, ok := viper.Get(key).(string)
 	if !ok {
-		log.Fatalf("Invalid type assertion while get a config parameter")
+		log.Fatalf("Invalid type assertion while get a environment parameter")
 	}
 
 	return value, ok
 }
 
-func readConfigFile() {
+func readEnvFile() {
 	viper.SetConfigFile(".env")
+	
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Fatalf("Error while reading config file %s", err)
+		log.Fatalf("Error while reading environment file %s", err)
 	}
 }
