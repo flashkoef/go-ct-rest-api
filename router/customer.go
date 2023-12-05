@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetCustomerRoute(router *gin.RouterGroup, httpHandler *http_handler.CustomerController) {
+func SetCustomerRoute(router *gin.RouterGroup, httpHandler *http_handler.CustomerHandler) {
 	router.GET("/customer", httpHandler.GetCustomerByEmail)
 	router.GET("/customer/:customerID", httpHandler.GetCustomerByID)
 }

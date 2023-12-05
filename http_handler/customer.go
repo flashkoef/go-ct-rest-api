@@ -8,22 +8,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CustomerController struct {
+type CustomerHandler struct {
 	customerService service.CustomerServicer
 	checkError      error_handler.ErrorHandler
 }
 
-func NewCustomersController(s service.CustomerServicer, ce error_handler.ErrorHandler) *CustomerController {
-	return &CustomerController{
-		customerService: s,
-		checkError:      ce,
+func NewCustomersHandler(
+	customerService service.CustomerServicer,
+	checkError error_handler.ErrorHandler,
+) *CustomerHandler {
+	return &CustomerHandler{
+		customerService: customerService,
+		checkError:      checkError,
 	}
 }
 
-func (c *CustomerController) GetCustomerByEmail(ctx *gin.Context) {
-	customer, err := c.customerService.GetCustomerByEmail(ctx)
+func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
+	customer, err := handler.customerService.GetCustomerByEmail(ctx)
 
-	shouldReturn := c.checkError.CheckInternError(err, ctx)
+	shouldReturn := handler.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
 		return
 	}
@@ -31,10 +34,10 @@ func (c *CustomerController) GetCustomerByEmail(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, customer)
 }
 
-func (c *CustomerController) GetCustomerByID(ctx *gin.Context) {
-	customer, err := c.customerService.GetCustomerById(ctx)
+func (handler *CustomerHandler) GetCustomerByID(ctx *gin.Context) {
+	customer, err := handler.customerService.GetCustomerById(ctx)
 
-	shouldReturn := c.checkError.CheckInternError(err, ctx)
+	shouldReturn := handler.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
 		return
 	}

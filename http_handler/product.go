@@ -9,31 +9,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ProductController struct {
+type ProductHandler struct {
 	productService service.ProductServicer
 	checkError     error_handler.ErrorHandler
 	productMapper  mapper.ProductMapperPort
 }
 
-func NewProductController(
-	s service.ProductServicer,
-	ce error_handler.ErrorHandler,
-	pm mapper.ProductMapperPort,
-) *ProductController {
-	return &ProductController{
-		productService: s,
-		checkError:     ce,
-		productMapper:  pm,
+func NewProductHandler(
+	productService service.ProductServicer,
+	errorHandler error_handler.ErrorHandler,
+	productMapper mapper.ProductMapperPort,
+) *ProductHandler {
+	return &ProductHandler{
+		productService: productService,
+		checkError:     errorHandler,
+		productMapper:  productMapper,
 	}
 }
 
-func (c *ProductController) GetProductBySlug(ctx *gin.Context) {
-	productProjection, err := c.productService.GetProductBySlug(ctx)
+func (handler *ProductHandler) GetProductBySlug(ctx *gin.Context) {
+	productProjection, err := handler.productService.GetProductBySlug(ctx)
 
-	shouldReturn := c.checkError.CheckInternError(err, ctx)
+	shouldReturn := handler.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, c.productMapper.MapToProduct(productProjection))
+	ctx.JSON(http.StatusOK, handler.productMapper.MapToProduct(productProjection))
 }
