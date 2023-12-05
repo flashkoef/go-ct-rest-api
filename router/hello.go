@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/controllers/v1"
+	"github.com/flashkoef/go-ct-rest-api/controllers"
 	"github.com/gin-gonic/gin"
 )
 
-func SetHelloRoute(router *gin.RouterGroup, c *v1.HelloController) {
+func SetHelloRoute(router *gin.RouterGroup, c *controllers.HelloController) {
 	router.GET("/hello", c.Hello)
 }
