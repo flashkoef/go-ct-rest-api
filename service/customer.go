@@ -7,7 +7,7 @@ import (
 )
 
 type CustomerServicer interface {
-	GetCustomerByEmail(ctx *gin.Context) (platform.Customer, error)
+	GetCustomerByEmail(ctx *gin.Context) (*platform.CustomerPagedQueryResponse, error)
 	GetCustomerById(ctx *gin.Context) (*platform.Customer, error)
 }
 
