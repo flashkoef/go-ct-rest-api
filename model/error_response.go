@@ -1,15 +1,15 @@
 package model
 
 type ErrorResponse struct {
-	Status    uint   `json:"status"`
-	ErrorCode string `json:"errorCode"`
+	Message    string   `json:"message"`
+	Code string `json:"code"`
 	Error     error  `json:"error"`
 }
 
-func NewErrorResponse(status uint, errCode string, err error) *ErrorResponse {
+func NewErrorResponse(msg string, code string, err error) *ErrorResponse {
 	return &ErrorResponse{
-		Status:    status,
-		ErrorCode: errCode,
+		Message:    msg,
+		Code: code,
 		Error:     err,
 	}
 }
