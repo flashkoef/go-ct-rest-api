@@ -9,18 +9,19 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (service *CustomerService) GetCustomerByEmail(ctx *gin.Context) (platform.Customer, error) {
-	result, ctSdkErr := service.ctClient.Customers().
+func (service *CustomerService) GetCustomerByEmail(ctx *gin.Context) (*platform.CustomerPagedQueryResponse, error) {
+	result, err := service.ctClient.Customers().
 		Get().
-		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Query("email"))}).
+		Where([]string{fmt.Sprintf("email=\"%s\"", ctx.Param("email"))}).
 		Execute(ctx)
 
-	shouldReturn, err := checkError(ctSdkErr, result, ctx)
-	if shouldReturn {
-		return platform.Customer{}, err
+	if err != nil {
+		msg := fmt.Sprintln("Error while execute request to commercetools platform.")
+		log.Println(msg)
+		return &platform.CustomerPagedQueryResponse{}, error_handler.NewCtpError(msg, err)
 	}
 
-	return result.Results[0], nil
+	return result, nil
 }
 
 func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin.Context) (bool, error) {
@@ -28,12 +29,6 @@ func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin
 		msg := fmt.Sprintf("error while execute request to ctp %s", err)
 		log.Println(msg)
 		return true, error_handler.NewInternalError(msg, err)
-	}
-
-	if len(result.Results) == 0 {
-		msg := fmt.Sprintf("can't found customer with email %s", ctx.Query("email"))
-		log.Println(msg)
-		return true, error_handler.NewNotFoundError(msg)
 	}
 
 	return false, nil
