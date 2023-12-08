@@ -26,14 +26,17 @@ func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundError:
-			ctx.JSON(http.StatusNotFound, model.NewErrorResponse(http.StatusNotFound, NotFoundErr, err))
+			ctx.JSON(http.StatusNotFound, model.NewErrorResponse("Resource not found.", "NOT_FOUND", err))
 			return true
 		case *InternalError:
-			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
+			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("An unexpected error occurred.", InternalErr, err))
+			return true
+		case *CtpError:
+			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("An unexpected error occurred.", InternalErr, err))
 			return true
 		default:
-			log.Printf("oops, this was unexpected: %s", e)
-			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse(http.StatusInternalServerError, InternalErr, err))
+			log.Printf("Oops, this was unexpected: %s", e)
+			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("Oops, this was unexpected.", InternalErr, err))
 			return true
 		}
 	}
