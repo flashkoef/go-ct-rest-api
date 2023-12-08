@@ -5,12 +5,16 @@ import "fmt"
 const NotFoundErr = "NotFoundError"
 
 type NotFoundError struct {
+	ErrCode string
 	Message string
 	OriginalErr string
 }
 
 func NewNotFoundError(msg string) *NotFoundError {
-	return &NotFoundError{Message: msg}
+	return &NotFoundError{
+		ErrCode: NotFoundErr,
+		Message: msg,
+	}
 }
 
 func NewNotFoundErrorWithOriginalErr(msg string, originalErr string) *NotFoundError {
