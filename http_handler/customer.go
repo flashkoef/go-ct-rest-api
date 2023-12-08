@@ -45,7 +45,10 @@ func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 		}
 	}
 
-	customer, _ := handler.mapper.MapCtCustomerToCustomer(result.Results[0])
+	customer, err := handler.mapper.MapCtCustomerToCustomer(result.Results[0])
+	if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
+		return
+	}
 
 	ctx.JSON(http.StatusOK, customer)
 }
