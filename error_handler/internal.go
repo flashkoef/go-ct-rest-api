@@ -5,12 +5,14 @@ import "fmt"
 const InternalErr = "InternalError"
 
 type InternalError struct {
+	ErrCode string
 	Message string
 	Err     error
 }
 
 func NewInternalError(msg string, err error) *InternalError {
 	return &InternalError{
+		ErrCode: InternalErr,
 		Message: msg,
 		Err:     err,
 	}
