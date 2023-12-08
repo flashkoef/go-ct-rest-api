@@ -41,7 +41,7 @@ func getEnvParamByKey(key string) (string, bool) {
 
 func readEnvFile() {
 	viper.SetConfigFile(".env")
-	
+
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("error while reading environment file %s", err)

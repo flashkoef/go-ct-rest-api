@@ -6,13 +6,13 @@ const InternalErr = "InternalError"
 
 type InternalError struct {
 	Message string
-	Err error
+	Err     error
 }
 
 func NewInternalError(msg string, err error) *InternalError {
 	return &InternalError{
 		Message: msg,
-		Err: err,
+		Err:     err,
 	}
 }
 

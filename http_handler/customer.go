@@ -14,7 +14,7 @@ import (
 type CustomerHandler struct {
 	customerService service.CustomerServicer
 	checkError      error_handler.ErrorHandler
-	mapper mapper.CustomerMapper
+	mapper          mapper.CustomerMapper
 }
 
 func NewCustomersHandler(
@@ -25,13 +25,13 @@ func NewCustomersHandler(
 	return &CustomerHandler{
 		customerService: customerService,
 		checkError:      checkError,
-		mapper: mapper,
+		mapper:          mapper,
 	}
 }
 
 func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 	result, err := handler.customerService.GetCustomerByEmail(ctx)
-	
+
 	if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
 		return
 	}
@@ -50,10 +50,9 @@ func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, customer)
 }
 
-
 func (handler *CustomerHandler) GetCustomerByID(ctx *gin.Context) {
 	customer, err := handler.customerService.GetCustomerById(ctx)
-	
+
 	shouldReturn := handler.checkError.CheckInternError(err, ctx)
 	if shouldReturn {
 		return

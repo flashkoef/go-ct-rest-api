@@ -34,7 +34,7 @@ var ctCustomer = platform.Customer{
 	FirstName:   &firstName,
 	LastName:    &lastName,
 	DateOfBirth: &platform.Date{Year: 2023, Month: 12, Day: 06},
-	Addresses: ctAddresses,
+	Addresses:   ctAddresses,
 }
 
 var expCustomer = model.Customer{
@@ -42,7 +42,7 @@ var expCustomer = model.Customer{
 	FirstName:   "John",
 	LastName:    "Doe",
 	DateOfBirth: "2023-12-06",
-	Addresses: expAddresses,
+	Addresses:   expAddresses,
 }
 
 var ctCustomerWithEmptyAddresses = platform.Customer{
@@ -66,7 +66,7 @@ var ctCustomerWithEmptyFields = platform.Customer{
 	FirstName:   nil,
 	LastName:    nil,
 	DateOfBirth: nil,
-	Addresses: ctAddresses,
+	Addresses:   ctAddresses,
 }
 
 var expCustomerWithEmptyFields = model.Customer{
@@ -74,7 +74,7 @@ var expCustomerWithEmptyFields = model.Customer{
 	FirstName:   "",
 	LastName:    "",
 	DateOfBirth: "",
-	Addresses: expAddresses,
+	Addresses:   expAddresses,
 }
 
 var ctCustomerWithEmptyAddressFields = platform.Customer{
