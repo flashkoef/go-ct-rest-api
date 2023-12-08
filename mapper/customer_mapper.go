@@ -9,20 +9,22 @@ import (
 )
 
 type CustomerMapper interface {
-	MapCtCustomerToCustomer(ctCustomer platform.Customer) model.Customer
+	MapCtCustomerToCustomer(ctCustomer platform.Customer) (model.Customer, error)
 }
 
-func (m *Mapper) MapCtCustomerToCustomer(ctCustomer platform.Customer) model.Customer {
+func (m *Mapper) MapCtCustomerToCustomer(ctCustomer platform.Customer) (model.Customer, error) {
 	data, err := ctCustomer.MarshalJSON()
 	if err != nil {
-		log.Fatalf("Error while marshalling ctCustomer: %s", err)
+		log.Printf("Error while marshalling ctCustomer: %s", err)
+		return model.Customer{}, err
 	}
 
 	var mappedCustomer *model.Customer
 	err = json.Unmarshal(data, &mappedCustomer)
 	if err != nil {
-		log.Fatalf("Error while unmarshal ctCustomer to customer: %s", err)
+		log.Printf("Error while unmarshal ctCustomer to customer: %s", err)
+		return model.Customer{}, err
 	}
 
-	return *mappedCustomer
+	return *mappedCustomer, nil
 }
