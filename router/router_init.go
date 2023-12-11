@@ -17,10 +17,4 @@ func InitRoutes(routerGroup *gin.RouterGroup) {
 		error_handler.New(),
 		mapper.NewMapper(),
 	))
-
-	SetProductRoute(routerGroup, http_handler.NewProductHandler(
-		service.NewProductService(connector.New().GetProjectClient(), error_handler.New()),
-		error_handler.New(),
-		mapper.NewProductMapper(),
-	))
 }
