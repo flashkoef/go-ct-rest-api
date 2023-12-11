@@ -10,8 +10,6 @@ import (
 )
 
 func InitRoutes(routerGroup *gin.RouterGroup) {
-	SetHelloRoute(routerGroup, http_handler.NewHelloHandler())
-
 	SetCustomerRoute(routerGroup, http_handler.NewCustomersHandler(
 		service.NewCustomerService(connector.New().GetProjectClient(), error_handler.New()),
 		error_handler.New(),
