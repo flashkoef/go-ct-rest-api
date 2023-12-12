@@ -17,7 +17,7 @@ func (service *CustomerService) UpdateCustomer(ctCustomer platform.Customer, ctx
 		return &platform.Customer{}, err
 	}
 
-	customerUpdate := createCustomerUpdate(ctCustomer, customer)
+	customerUpdate := service.ctCustomerUpdate.CreateCustomerUpdate(ctCustomer, customer)
 
 	result, err := service.ctClient.Customers().WithId(ctCustomer.ID).Post(customerUpdate).Execute(ctx)
 	if err != nil {
@@ -27,37 +27,4 @@ func (service *CustomerService) UpdateCustomer(ctCustomer platform.Customer, ctx
 	}
 
 	return result, nil
-}
-
-func createCustomerUpdate(ctCustomer platform.Customer, customer model.Customer) platform.CustomerUpdate {
-	return platform.CustomerUpdate{
-		Version: ctCustomer.Version,
-		Actions: []platform.CustomerUpdateAction{
-			createGeneralUpdateAction("changeEmail", "email", customer.Email),
-			createGeneralUpdateAction("setFirstName", "firstName", customer.FirstName),
-			createGeneralUpdateAction("setLastName", "lastName", customer.LastName),
-			createGeneralUpdateAction("setDateOfBirth", "dateOfBirth", customer.DateOfBirth),
-			createChangeAddressUpdateAction(*ctCustomer.Addresses[0].ID, customer.Addresses[0]),
-		},
-	}
-}
-
-func createGeneralUpdateAction(action string, field string, value string) map[string]interface{} {
-	return map[string]interface{}{
-		"action": action,
-		field:    value,
-	}
-}
-
-func createChangeAddressUpdateAction(ctCustomerAddressID string, customerAddress model.Address) map[string]interface{} {
-	return map[string]interface{}{
-		"action":    "changeAddress",
-		"addressId": ctCustomerAddressID,
-		"address": map[string]interface{}{
-			"streetName": customerAddress.StreetName,
-			"city":       customerAddress.City,
-			"postalCode": customerAddress.PostalCode,
-			"country":    "DE",
-		},
-	}
 }
