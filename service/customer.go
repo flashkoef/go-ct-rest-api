@@ -8,6 +8,9 @@ import (
 
 type CustomerServicer interface {
 	GetCustomerByEmail(ctx *gin.Context) (*platform.CustomerPagedQueryResponse, error)
+	UpdateCustomer(ctCustomer platform.Customer, ctx *gin.Context) (*platform.Customer, error)
+	CreateCustomer(ctx *gin.Context) (*platform.CustomerSignInResult, error)
+	DeleteCustomerByID(customerID string, version int, ctx *gin.Context) (*platform.Customer, error)
 	GetCustomerById(ctx *gin.Context) (*platform.Customer, error)
 }
 
