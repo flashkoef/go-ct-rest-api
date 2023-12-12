@@ -5,9 +5,9 @@ import "fmt"
 const InternalErr = "InternalError"
 
 type InternalError struct {
-	ErrCode string
-	Message string
-	Err     error
+	ErrCode string `json:"errCode"`
+	Message string `json:"message"`
+	Err     error  `json:"err"`
 }
 
 func NewInternalError(msg string, err error) *InternalError {

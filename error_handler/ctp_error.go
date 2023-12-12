@@ -5,9 +5,9 @@ import "fmt"
 const CtpErr = "CommercetoolsError"
 
 type CtpError struct {
-	ErrCode string
-	Message string
-	Err     error
+	ErrCode string `json:"errCode"`
+	Message string `json:"message"`
+	Err     error  `json:"err"`
 }
 
 func NewCtpError(msg string, err error) *CtpError {
