@@ -8,7 +8,7 @@ import (
 
 func TestMapCtCustomerToCustomer(t *testing.T) {
 	m := NewMapper()
-	mappedCustomer, _ := m.MapCtCustomerToCustomer(ctCustomer)
+	mappedCustomer, _ := m.MapCtCustomerToCustomer(CtCustomer)
 	assert.Equal(t, expCustomer, mappedCustomer)
 }
 
