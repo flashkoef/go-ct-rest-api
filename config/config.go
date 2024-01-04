@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -40,10 +41,19 @@ func getEnvParamByKey(key string) (string, bool) {
 }
 
 func readEnvFile() {
-	viper.SetConfigFile(".env")
+	envFilePath := getEnvFilePath()
+	viper.SetConfigFile(envFilePath)
 
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("error while reading environment file %s", err)
 	}
+}
+
+func getEnvFilePath() string {
+	environment := os.Getenv("ENVIRONMENT")
+	if environment == "test" {
+		return "../.env"
+	}
+	return ".env"
 }
