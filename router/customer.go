@@ -6,9 +6,9 @@ import (
 )
 
 func SetCustomerRoute(router *gin.RouterGroup, httpHandler *http_handler.CustomerHandler) {
-	router.GET("/customer", httpHandler.GetCustomerByEmail)
+	// router.GET("/customer", httpHandler.GetCustomerByEmail)
+	router.GET("/customer/:email", httpHandler.GetCustomerByEmail)
 	router.POST("/customer/:email", httpHandler.UpsertCustomer)
 	router.DELETE("/customer/:email", httpHandler.DeleteCustomerByEmail)
-	router.GET("/customer/:email", httpHandler.GetCustomerByEmail)
 	// router.GET("/customer/:customerID", httpHandler.GetCustomerByID)
 }
