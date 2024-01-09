@@ -23,13 +23,3 @@ func (service *CustomerService) GetCustomerByEmail(ctx *gin.Context) (*platform.
 
 	return result, nil
 }
-
-func checkError(err error, result *platform.CustomerPagedQueryResponse, ctx *gin.Context) (bool, error) {
-	if err != nil {
-		msg := fmt.Sprintf("error while execute request to ctp %s", err)
-		log.Println(msg)
-		return true, error_handler.NewInternalError(msg, err)
-	}
-
-	return false, nil
-}
