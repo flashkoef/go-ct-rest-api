@@ -3,7 +3,7 @@ package model
 type ErrorResponse struct {
 	Message string `json:"message"`
 	Code    string `json:"code"`
-	Error   string  `json:"error"`
+	Error   string `json:"error"`
 }
 
 func NewErrorResponse(msg string, code string, err error) *ErrorResponse {

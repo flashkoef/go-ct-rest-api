@@ -24,9 +24,9 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 	errorHandler := error_handler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
 	customerHandler := http_handler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
-	
+
 	resRecorder := httptest.NewRecorder()
-  ctx := GetTestGinContext(resRecorder)
+	ctx := GetTestGinContext(resRecorder)
 
 	pathParams := []gin.Param{
 		{
@@ -36,18 +36,18 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 	}
 
 	MockJsonGetCustomerByEmail(ctx, pathParams)
-	
+
 	customerHandler.GetCustomerByEmail(ctx)
 
 	assert.EqualValues(t, http.StatusOK, resRecorder.Code)
-	
+
 	var customer model.Customer
 	err := json.NewDecoder(resRecorder.Body).Decode(&customer)
 	if err != nil {
 		log.Fatalf("error while decoding response body %s ", err)
 	}
 
-  assert.Equal(t, expectedCustomer, customer)
+	assert.Equal(t, expectedCustomer, customer)
 }
 
 func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
@@ -55,9 +55,9 @@ func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
 	errorHandler := error_handler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
 	customerHandler := http_handler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
-	
+
 	resRecorder := httptest.NewRecorder()
-  ctx := GetTestGinContext(resRecorder)
+	ctx := GetTestGinContext(resRecorder)
 
 	pathParams := []gin.Param{
 		{
@@ -67,29 +67,29 @@ func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
 	}
 
 	MockJsonGetCustomerByEmail(ctx, pathParams)
-	
+
 	customerHandler.GetCustomerByEmail(ctx)
 
 	assert.EqualValues(t, http.StatusNotFound, resRecorder.Code)
-	
+
 	var errResponse model.ErrorResponse
 	err := json.NewDecoder(resRecorder.Body).Decode(&errResponse)
 	if err != nil {
 		log.Fatalf("error while decoding response body %s ", err)
 	}
 
-  assert.Equal(t, expectedErrorResponse, errResponse)
+	assert.Equal(t, expectedErrorResponse, errResponse)
 }
 
 func GetTestGinContext(resRecorder *httptest.ResponseRecorder) *gin.Context {
 	gin.SetMode(gin.TestMode)
 
-  ctx, _ := gin.CreateTestContext(resRecorder)
-  ctx.Request = &http.Request{
-      Header: make(http.Header),
-  }
+	ctx, _ := gin.CreateTestContext(resRecorder)
+	ctx.Request = &http.Request{
+		Header: make(http.Header),
+	}
 
-  return ctx
+	return ctx
 }
 
 func MockJsonGetCustomerByEmail(ctx *gin.Context, pathParams gin.Params) {

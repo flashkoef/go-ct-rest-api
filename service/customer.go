@@ -14,16 +14,16 @@ type CustomerServicer interface {
 }
 
 type CustomerService struct {
-	ctClient         *platform.ByProjectKeyRequestBuilder
-	errorHandler     error_handler.ErrorHandler
+	ctClient     *platform.ByProjectKeyRequestBuilder
+	errorHandler error_handler.ErrorHandler
 }
 
 func NewCustomerService(
-	ctClient *platform.ByProjectKeyRequestBuilder, 
+	ctClient *platform.ByProjectKeyRequestBuilder,
 	errorHandler error_handler.ErrorHandler,
 ) *CustomerService {
 	return &CustomerService{
-		ctClient:         ctClient,
-		errorHandler:     errorHandler,
+		ctClient:     ctClient,
+		errorHandler: errorHandler,
 	}
 }
