@@ -11,7 +11,6 @@ type CustomerServicer interface {
 	UpdateCustomer(ctCustomer platform.Customer, ctx *gin.Context) (*platform.Customer, error)
 	CreateCustomer(ctx *gin.Context) (*platform.CustomerSignInResult, error)
 	DeleteCustomerByID(customerID string, version int, ctx *gin.Context) (*platform.Customer, error)
-	GetCustomerById(ctx *gin.Context) (*platform.Customer, error)
 }
 
 type CustomerService struct {
