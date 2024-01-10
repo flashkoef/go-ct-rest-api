@@ -4,23 +4,24 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/flashkoef/go-ct-rest-api/config"
 	"github.com/flashkoef/go-ct-rest-api/router"
 	"github.com/gin-gonic/gin"
 )
 
-var engine *gin.Engine
-
-func init() {
-	engine = gin.New()
+func main() {
+	engine := gin.New()
+	conf := config.New()
+	
 	routerGroup := engine.Group("")
 	router.InitRoutes(routerGroup)
-}
-
-func main() {
-	conf := config.New()
-
+	
 	log.Println("Server running on port: ", conf.HTTPServer.Port)
-	http.ListenAndServe(fmt.Sprintf(":%s", conf.HTTPServer.Port), engine)
+	
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.HTTPServer.Port), engine); err != nil {
+		log.Fatalf("error while listen and serve: %s", err)
+		os.Exit(1)
+	}
 }
