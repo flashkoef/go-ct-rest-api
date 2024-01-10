@@ -1,6 +1,6 @@
 package config
 
-type HttpServerConfig struct {
+type HTTPServerConfig struct {
 	Port string
 }
 
@@ -12,6 +12,6 @@ type CtpConfig struct {
 }
 
 type Config struct {
-	HttpServer HttpServerConfig
+	HTTPServer HTTPServerConfig
 	Ctp        CtpConfig
 }

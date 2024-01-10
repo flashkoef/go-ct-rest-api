@@ -9,8 +9,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/flashkoef/go-ct-rest-api/error_handler"
-	"github.com/flashkoef/go-ct-rest-api/http_handler"
+	"github.com/flashkoef/go-ct-rest-api/errorhandler"
+	"github.com/flashkoef/go-ct-rest-api/httphandler"
 	"github.com/flashkoef/go-ct-rest-api/libs/commercetools/connector"
 	"github.com/flashkoef/go-ct-rest-api/mapper"
 	"github.com/flashkoef/go-ct-rest-api/model"
@@ -21,9 +21,9 @@ import (
 
 func TestHttpGetCustomerByEmail(t *testing.T) {
 	os.Setenv("ENVIRONMENT", "test")
-	errorHandler := error_handler.New()
+	errorHandler := errorhandler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
-	customerHandler := http_handler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
+	customerHandler := httphandler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
 
 	resRecorder := httptest.NewRecorder()
 	ctx := GetTestGinContext(resRecorder)
@@ -35,7 +35,7 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 		},
 	}
 
-	MockJsonGetCustomerByEmail(ctx, pathParams)
+	MockJSONGetCustomerByEmail(ctx, pathParams)
 
 	customerHandler.GetCustomerByEmail(ctx)
 
@@ -52,9 +52,9 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 
 func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
 	os.Setenv("ENVIRONMENT", "test")
-	errorHandler := error_handler.New()
+	errorHandler := errorhandler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
-	customerHandler := http_handler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
+	customerHandler := httphandler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
 
 	resRecorder := httptest.NewRecorder()
 	ctx := GetTestGinContext(resRecorder)
@@ -66,7 +66,7 @@ func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
 		},
 	}
 
-	MockJsonGetCustomerByEmail(ctx, pathParams)
+	MockJSONGetCustomerByEmail(ctx, pathParams)
 
 	customerHandler.GetCustomerByEmail(ctx)
 
@@ -92,7 +92,7 @@ func GetTestGinContext(resRecorder *httptest.ResponseRecorder) *gin.Context {
 	return ctx
 }
 
-func MockJsonGetCustomerByEmail(ctx *gin.Context, pathParams gin.Params) {
+func MockJSONGetCustomerByEmail(ctx *gin.Context, pathParams gin.Params) {
 	ctx.Request.Method = "GET"
 	ctx.Request.Header.Set("Content-Type", "application/json")
 	// ctx.Set("email", "jane.doe@test.de") // when invoking the endpoint

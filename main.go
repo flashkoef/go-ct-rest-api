@@ -21,6 +21,6 @@ func init() {
 func main() {
 	conf := config.New()
 
-	log.Println("Server running on port: ", conf.HttpServer.Port)
-	http.ListenAndServe(fmt.Sprintf(":%s", conf.HttpServer.Port), engine)
+	log.Println("Server running on port: ", conf.HTTPServer.Port)
+	http.ListenAndServe(fmt.Sprintf(":%s", conf.HTTPServer.Port), engine)
 }

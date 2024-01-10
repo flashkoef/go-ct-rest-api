@@ -9,7 +9,7 @@ import (
 
 func New() *Config {
 	return &Config{
-		HttpServer: HttpServerConfig{
+		HTTPServer: HTTPServerConfig{
 			Port: getEnvValueStringByKey("CI_HTTP_SERVER_PORT", "8080"),
 		},
 		Ctp: CtpConfig{

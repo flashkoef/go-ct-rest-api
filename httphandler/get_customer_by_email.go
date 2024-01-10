@@ -1,11 +1,11 @@
-package http_handler
+package httphandler
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 
-	"github.com/flashkoef/go-ct-rest-api/error_handler"
+	"github.com/flashkoef/go-ct-rest-api/errorhandler"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 	if len(result.Results) == 0 {
 		msg := fmt.Sprintf("Can't found customer with email %s", ctx.Param("email"))
 		log.Println(msg)
-		err := error_handler.NewNotFoundError(msg)
+		err := errorhandler.NewNotFoundError(msg)
 		if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
 			return
 		}
