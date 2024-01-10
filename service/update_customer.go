@@ -10,7 +10,10 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (service *CustomerService) UpdateCustomer(ctCustomer platform.Customer, ctx *gin.Context) (*platform.Customer, error) {
+func (service *CustomerService) UpdateCustomer(
+	ctCustomer platform.Customer, 
+	ctx *gin.Context,
+) (*platform.Customer, error) {
 	var customer model.Customer
 	if err := ctx.BindJSON(&customer); err != nil {
 		log.Printf("Error while binding customer: %s", err)

@@ -21,6 +21,7 @@ import (
 
 func TestHttpGetCustomerByEmail(t *testing.T) {
 	os.Setenv("ENVIRONMENT", "test")
+	
 	errorHandler := errorhandler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
 	customerHandler := httphandler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())
@@ -43,6 +44,7 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 
 	var customer model.Customer
 	err := json.NewDecoder(resRecorder.Body).Decode(&customer)
+	
 	if err != nil {
 		log.Fatalf("error while decoding response body %s ", err)
 	}
@@ -52,6 +54,7 @@ func TestHttpGetCustomerByEmail(t *testing.T) {
 
 func TestHttpGetCustomerByEmailNotFound(t *testing.T) {
 	os.Setenv("ENVIRONMENT", "test")
+	
 	errorHandler := errorhandler.New()
 	customerService := service.NewCustomerService(connector.New().GetProjectClient(), errorHandler)
 	customerHandler := httphandler.NewCustomersHandler(customerService, errorHandler, mapper.NewMapper())

@@ -9,7 +9,11 @@ import (
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
-func (service *CustomerService) DeleteCustomerByID(customerID string, version int, ctx *gin.Context) (*platform.Customer, error) {
+func (service *CustomerService) DeleteCustomerByID(
+	customerID string, 
+	version int, 
+	ctx *gin.Context,
+) (*platform.Customer, error) {
 	ctCustomer, err := service.ctClient.Customers().WithId(customerID).Delete().Version(version).Execute(ctx)
 	if err != nil {
 		msg := fmt.Sprintln("Error while execute delete customer request to commercetools platform.")

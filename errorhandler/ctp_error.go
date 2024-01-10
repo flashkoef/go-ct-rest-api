@@ -19,5 +19,6 @@ func NewCtpError(msg string, err error) *CtpError {
 }
 
 func (e *CtpError) Error() string {
-	return fmt.Sprintf("%s: %s: %s", CtpErr, e.Message, e.Err) // "%s: commercetools platform error. error: %s", e.Message, e.Err
+	// "%s: commercetools platform error. error: %s", e.Message, e.Err
+	return fmt.Sprintf("%s: %s: %s", CtpErr, e.Message, e.Err)
 }
