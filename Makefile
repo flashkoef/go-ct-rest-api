@@ -57,7 +57,6 @@ build:
 	GOARCH=amd64 GOOS=windows go build -o ./target/${BINARY_NAME}-windows main.go
 	GOARCH=amd64 GOOS=linux go build -o ./target/${BINARY_NAME}-linux main.go
 
-
 ## run: run the  application
 .PHONY: run
 run: build
