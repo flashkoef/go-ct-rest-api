@@ -10,8 +10,8 @@ import (
 )
 
 func (service *CustomerService) DeleteCustomerByID(
-	customerID string, 
-	version int, 
+	customerID string,
+	version int,
 	ctx *gin.Context,
 ) (*platform.Customer, error) {
 	ctCustomer, err := service.ctClient.Customers().WithId(customerID).Delete().Version(version).Execute(ctx)

@@ -11,7 +11,7 @@ import (
 )
 
 func (service *CustomerService) UpdateCustomer(
-	ctCustomer platform.Customer, 
+	ctCustomer platform.Customer,
 	ctx *gin.Context,
 ) (*platform.Customer, error) {
 	var customer model.Customer

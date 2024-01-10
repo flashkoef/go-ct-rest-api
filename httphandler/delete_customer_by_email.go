@@ -19,7 +19,7 @@ func (handler *CustomerHandler) DeleteCustomerByEmail(ctx *gin.Context) {
 		msg := fmt.Sprintf("Can't found customer with email %s", ctx.Param("email"))
 		log.Println(msg)
 		err := errorhandler.NewNotFoundError(msg)
-		
+
 		if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
 			return
 		}

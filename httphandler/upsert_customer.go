@@ -17,7 +17,7 @@ func (handler *CustomerHandler) UpsertCustomer(ctx *gin.Context) {
 	if len(customerPagedQueryResponse.Results) == 0 {
 		customerSignInResult, err := handler.customerService.CreateCustomer(ctx)
 		log.Printf("Created customer in ctp, with ID: %s", customerSignInResult.Customer.ID)
-		
+
 		if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
 			return
 		}

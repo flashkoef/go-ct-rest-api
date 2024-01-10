@@ -14,8 +14,8 @@ type ErrorHandler interface {
 	CheckInternError(err error, ctx *gin.Context) bool
 	CheckCtSdkErrorForNonPagedResponse(err error, ctx *gin.Context) (bool, error)
 	CheckCtSdkErrorForPagedResponse(
-		err error, 
-		result *platform.ProductProjectionPagedQueryResponse, 
+		err error,
+		result *platform.ProductProjectionPagedQueryResponse,
 		ctx *gin.Context,
 	) (bool, error)
 }
@@ -43,7 +43,7 @@ func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
 		default:
 			log.Printf("Oops, this was unexpected: %s", e)
 			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("Oops, this was unexpected.", InternalErr, err))
-			
+
 			return true
 		}
 	}
@@ -54,7 +54,7 @@ func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
 func (ce *CheckError) CheckCtSdkErrorForNonPagedResponse(err error, ctx *gin.Context) (bool, error) {
 	if err != nil {
 		log.Printf("error while execute request to ctp %s", err)
-		
+
 		if err.Error() == platform.ErrNotFound.Error() {
 			msg := fmt.Sprintf("can't found customer with id %s", ctx.Param("customerID"))
 			return true, NewNotFoundErrorWithOriginalErr(msg, err.Error())
@@ -65,8 +65,8 @@ func (ce *CheckError) CheckCtSdkErrorForNonPagedResponse(err error, ctx *gin.Con
 }
 
 func (ce *CheckError) CheckCtSdkErrorForPagedResponse(
-	err error, 
-	result *platform.ProductProjectionPagedQueryResponse, 
+	err error,
+	result *platform.ProductProjectionPagedQueryResponse,
 	ctx *gin.Context,
 ) (bool, error) {
 	if err != nil {
@@ -82,6 +82,6 @@ func (ce *CheckError) CheckCtSdkErrorForPagedResponse(
 
 		return true, NewNotFoundError(msg)
 	}
-	
+
 	return false, nil
 }

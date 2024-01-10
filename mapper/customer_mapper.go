@@ -22,11 +22,11 @@ func (m *Mapper) MapCtCustomerToCustomer(ctCustomer platform.Customer) (model.Cu
 
 	var mappedCustomer *model.Customer
 	err = json.Unmarshal(data, &mappedCustomer)
-	
+
 	if err != nil {
 		log.Printf("Error while unmarshal ctCustomer to customer: %s", err)
 		return model.Customer{}, errorhandler.NewInternalError(
-			"Error while unmarshal commercetools customer to customer.", 
+			"Error while unmarshal commercetools customer to customer.",
 			err,
 		)
 	}
