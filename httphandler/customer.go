@@ -8,18 +8,18 @@ import (
 
 type CustomerHandler struct {
 	customerService service.CustomerServicer
-	checkError      errorhandler.ErrorHandler
+	errorHandler    errorhandler.ErrorHandler
 	mapper          mapper.CustomerMapper
 }
 
 func NewCustomersHandler(
 	customerService service.CustomerServicer,
-	checkError errorhandler.ErrorHandler,
+	errorHandler errorhandler.ErrorHandler,
 	mapper mapper.CustomerMapper,
 ) *CustomerHandler {
 	return &CustomerHandler{
 		customerService: customerService,
-		checkError:      checkError,
+		errorHandler:    errorHandler,
 		mapper:          mapper,
 	}
 }

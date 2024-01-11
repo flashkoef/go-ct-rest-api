@@ -11,7 +11,7 @@ import (
 
 func (handler *CustomerHandler) DeleteCustomerByEmail(ctx *gin.Context) {
 	customerPagedQueryResponse, err := handler.customerService.GetCustomerByEmail(ctx)
-	if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
 		return
 	}
 
@@ -20,7 +20,7 @@ func (handler *CustomerHandler) DeleteCustomerByEmail(ctx *gin.Context) {
 		log.Println(msg)
 		err := errorhandler.NewNotFoundError(msg)
 
-		if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
+		if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
 			return
 		}
 	}
@@ -30,12 +30,12 @@ func (handler *CustomerHandler) DeleteCustomerByEmail(ctx *gin.Context) {
 		customerPagedQueryResponse.Results[0].Version,
 		ctx,
 	)
-	if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
 		return
 	}
 
 	customer, err := handler.mapper.MapCtCustomerToCustomer(*ctCustomer)
-	if shouldReturn := handler.checkError.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
 		return
 	}
 
