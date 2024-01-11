@@ -17,13 +17,6 @@ func NewNotFoundError(msg string) *NotFoundError {
 	}
 }
 
-func NewNotFoundErrorWithOriginalErr(msg string, originalErr string) *NotFoundError {
-	return &NotFoundError{
-		Message: msg,
-		Err:     originalErr,
-	}
-}
-
 func (e *NotFoundError) Error() string {
 	return fmt.Sprintf("%s: %s", NotFoundErr, e.Message)
 }
