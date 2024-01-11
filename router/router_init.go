@@ -12,7 +12,7 @@ import (
 func InitRoutes(routerGroup *gin.RouterGroup) {
 	SetCustomerRoute(
 		routerGroup, httphandler.NewCustomersHandler(
-			service.NewCustomerService(connector.New().GetProjectClient(), errorhandler.New()),
+			service.NewCustomerService(connector.New().GetProjectClient()),
 			errorhandler.New(),
 			mapper.NewMapper(),
 		),

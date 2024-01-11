@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/flashkoef/go-ct-rest-api/errorhandler"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
@@ -14,16 +13,11 @@ type CustomerServicer interface {
 }
 
 type CustomerService struct {
-	ctClient     *platform.ByProjectKeyRequestBuilder
-	errorHandler errorhandler.ErrorHandler
+	ctClient *platform.ByProjectKeyRequestBuilder
 }
 
-func NewCustomerService(
-	ctClient *platform.ByProjectKeyRequestBuilder,
-	errorHandler errorhandler.ErrorHandler,
-) *CustomerService {
+func NewCustomerService(ctClient *platform.ByProjectKeyRequestBuilder) *CustomerService {
 	return &CustomerService{
-		ctClient:     ctClient,
-		errorHandler: errorHandler,
+		ctClient: ctClient,
 	}
 }
