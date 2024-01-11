@@ -9,16 +9,16 @@ import (
 )
 
 type ErrorHandler interface {
-	CheckInternError(err error, ctx *gin.Context) bool
+	CheckError(err error, ctx *gin.Context) bool
 }
 
-type CheckError struct{}
+type CheckErr struct{}
 
-func New() *CheckError {
-	return &CheckError{}
+func New() *CheckErr {
+	return &CheckErr{}
 }
 
-func (ce *CheckError) CheckInternError(err error, ctx *gin.Context) bool {
+func (ce *CheckErr) CheckError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundError:

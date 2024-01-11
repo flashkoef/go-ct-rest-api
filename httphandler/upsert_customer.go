@@ -10,7 +10,7 @@ import (
 func (handler *CustomerHandler) UpsertCustomer(ctx *gin.Context) {
 	customerPagedQueryResponse, err := handler.customerService.GetCustomerByEmail(ctx)
 
-	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
 
@@ -18,12 +18,12 @@ func (handler *CustomerHandler) UpsertCustomer(ctx *gin.Context) {
 		customerSignInResult, err := handler.customerService.CreateCustomer(ctx)
 		log.Printf("Created customer in ctp, with ID: %s", customerSignInResult.Customer.ID)
 
-		if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+		if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 			return
 		}
 
 		customer, err := handler.mapper.MapCtCustomerToCustomer(customerSignInResult.Customer)
-		if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+		if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 			return
 		}
 
@@ -32,12 +32,12 @@ func (handler *CustomerHandler) UpsertCustomer(ctx *gin.Context) {
 	}
 
 	ctCustomer, err := handler.customerService.UpdateCustomer(customerPagedQueryResponse.Results[0], ctx)
-	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
 
 	customer, err := handler.mapper.MapCtCustomerToCustomer(*ctCustomer)
-	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
 

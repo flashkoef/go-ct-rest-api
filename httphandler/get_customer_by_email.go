@@ -12,7 +12,7 @@ import (
 func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 	result, err := handler.customerService.GetCustomerByEmail(ctx)
 
-	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
 
@@ -21,13 +21,13 @@ func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 		log.Println(msg)
 		err := errorhandler.NewNotFoundError(msg)
 
-		if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+		if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 			return
 		}
 	}
 
 	customer, err := handler.mapper.MapCtCustomerToCustomer(result.Results[0])
-	if shouldReturn := handler.errorHandler.CheckInternError(err, ctx); shouldReturn {
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
 
