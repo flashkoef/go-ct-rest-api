@@ -18,7 +18,7 @@ func New() *CheckErr {
 	return &CheckErr{}
 }
 
-func (ce *CheckErr) CheckError(err error, ctx *gin.Context) bool {
+func (c *CheckErr) CheckError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *NotFoundError:
