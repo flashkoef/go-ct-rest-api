@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/flashkoef/go-ct-rest-api/errorhandler"
+	"github.com/flashkoef/go-ct-rest-api/customerror"
 	"github.com/flashkoef/go-ct-rest-api/model"
 	"github.com/gin-gonic/gin"
 	"github.com/labd/commercetools-go-sdk/platform"
@@ -26,7 +26,7 @@ func (service *CustomerService) UpdateCustomer(
 	if err != nil {
 		msg := fmt.Sprintln("Error while execute update customer request to commercetools platform.")
 		log.Println(msg)
-		return &platform.Customer{}, errorhandler.NewCtpError(msg, err)
+		return &platform.Customer{}, customerror.NewCtpError(msg, err)
 	}
 
 	return result, nil

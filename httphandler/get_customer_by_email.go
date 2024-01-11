@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/flashkoef/go-ct-rest-api/errorhandler"
+	"github.com/flashkoef/go-ct-rest-api/customerror"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
 	if len(result.Results) == 0 {
 		msg := fmt.Sprintf("Can't found customer with email %s", ctx.Param("email"))
 		log.Println(msg)
-		err := errorhandler.NewNotFoundError(msg)
+		err := customerror.NewNotFoundError(msg)
 
 		if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 			return
