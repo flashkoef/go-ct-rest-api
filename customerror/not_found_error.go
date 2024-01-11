@@ -7,7 +7,6 @@ const NotFoundErr = "NotFoundError"
 type NotFoundError struct {
 	ErrCode string `json:"errCode"`
 	Message string `json:"message"`
-	Err     string `json:"err,omitempty"`
 }
 
 func NewNotFoundError(msg string) *NotFoundError {
