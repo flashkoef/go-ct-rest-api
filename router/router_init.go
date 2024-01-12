@@ -6,6 +6,7 @@ import (
 	"github.com/flashkoef/go-ct-rest-api/libs/commercetools/connector"
 	"github.com/flashkoef/go-ct-rest-api/mapper"
 	"github.com/flashkoef/go-ct-rest-api/service"
+	"github.com/flashkoef/go-ct-rest-api/validator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,6 +16,7 @@ func InitRoutes(routerGroup *gin.RouterGroup) {
 			service.NewCustomerService(connector.New().GetProjectClient()),
 			errorhandler.New(),
 			mapper.NewMapper(),
+			validator.New(),
 		),
 	)
 }
