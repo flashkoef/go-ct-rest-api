@@ -1,7 +1,6 @@
 package errorhandler
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/flashkoef/go-ct-rest-api/customerror"
@@ -23,19 +22,39 @@ func (c *CheckErr) CheckError(err error, ctx *gin.Context) bool {
 	if err != nil {
 		switch e := err.(type) {
 		case *customerror.NotFoundError:
-			ctx.JSON(http.StatusNotFound, model.NewErrorResponse("Resource not found.", "NOT_FOUND", err))
+			ctx.JSON(http.StatusNotFound, model.NewErrorResponse("Resource not found", customerror.NotFoundErr, e))
 
 			return true
 		case *customerror.InternalError:
-			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("An unexpected error occurred.", customerror.InternalErr, err))
+			ctx.JSON(
+				http.StatusInternalServerError,
+				model.NewErrorResponse("Internal server error occurred", customerror.InternalErr, e),
+			)
+
 			return true
 		case *customerror.CtpError:
-			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("An unexpected error occurred.", customerror.InternalErr, err))
+			ctx.JSON(
+				http.StatusInternalServerError,
+				model.NewErrorResponse(
+					"An error has occurred when interacting with the commercetools platform",
+					customerror.CtpErr,
+					e,
+				),
+			)
+
+			return true
+		case *customerror.ValidationError:
+			ctx.JSON(
+				http.StatusInternalServerError,
+				model.NewErrorResponse("Validation failed", customerror.ValidationErr, e),
+			)
 
 			return true
 		default:
-			log.Printf("Oops, this was unexpected: %s", e)
-			ctx.JSON(http.StatusInternalServerError, model.NewErrorResponse("Oops, this was unexpected.", customerror.InternalErr, err))
+			ctx.JSON(
+				http.StatusInternalServerError,
+				model.NewErrorResponse("Oops, this was unexpected", customerror.InternalErr, e),
+			)
 
 			return true
 		}
