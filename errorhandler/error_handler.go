@@ -45,8 +45,8 @@ func (c *CheckErr) CheckError(err error, ctx *gin.Context) bool {
 			return true
 		case *customerror.ValidationError:
 			ctx.JSON(
-				http.StatusInternalServerError,
-				model.NewErrorResponse("Validation failed", customerror.ValidationErr, e),
+				http.StatusBadRequest,
+				model.NewErrorResponse("Bad Request", customerror.ValidationErr, e),
 			)
 
 			return true
