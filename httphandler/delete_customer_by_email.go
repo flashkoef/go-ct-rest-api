@@ -10,6 +10,11 @@ import (
 )
 
 func (handler *CustomerHandler) DeleteCustomerByEmail(ctx *gin.Context) {
+	err := handler.validator.ValidateEmail(ctx.Param("email"))
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
+		return
+	}
+
 	customerPagedQueryResponse, err := handler.customerService.GetCustomerByEmail(ctx)
 	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
