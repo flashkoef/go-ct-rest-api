@@ -10,8 +10,12 @@ import (
 )
 
 func (handler *CustomerHandler) GetCustomerByEmail(ctx *gin.Context) {
-	result, err := handler.customerService.GetCustomerByEmail(ctx)
+	err := handler.validator.ValidateEmail(ctx.Param("email"))
+	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
+		return
+	}
 
+	result, err := handler.customerService.GetCustomerByEmail(ctx)
 	if shouldReturn := handler.errorHandler.CheckError(err, ctx); shouldReturn {
 		return
 	}
