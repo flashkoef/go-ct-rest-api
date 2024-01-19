@@ -6,12 +6,13 @@ import (
 
 	"github.com/flashkoef/go-ct-rest-api/customerror"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
 func (service *CustomerService) CreateCustomer(ctx *gin.Context) (*platform.CustomerSignInResult, error) {
 	var customerDraft platform.CustomerDraft
-	if err := ctx.BindJSON(&customerDraft); err != nil {
+	if err := ctx.ShouldBindBodyWith(&customerDraft, binding.JSON); err != nil {
 		msg := fmt.Sprintln("Error while created customer draft.")
 		log.Println(msg)
 		return &platform.CustomerSignInResult{}, customerror.NewInternalError(msg, err)
