@@ -20,7 +20,7 @@ var (
 		},
 	}
 
-	expAddresses = []model.Address{
+	expAddresses = []*model.Address{
 		{
 			StreetName: streetName,
 			City:       city,
@@ -58,7 +58,7 @@ var expCustomerWithEmptyAddresses = model.Customer{
 	FirstName:   "John",
 	LastName:    "Doe",
 	DateOfBirth: "2023-12-06",
-	Addresses:   []model.Address{},
+	Addresses:   []*model.Address{},
 }
 
 var ctCustomerWithEmptyFields = platform.Customer{
@@ -90,5 +90,5 @@ var expCustomerWithEmptyAddressFields = model.Customer{
 	FirstName:   "John",
 	LastName:    "Doe",
 	DateOfBirth: "2023-12-06",
-	Addresses:   []model.Address{},
+	Addresses:   []*model.Address{},
 }
