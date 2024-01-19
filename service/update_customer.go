@@ -7,6 +7,7 @@ import (
 	"github.com/flashkoef/go-ct-rest-api/customerror"
 	"github.com/flashkoef/go-ct-rest-api/model"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/labd/commercetools-go-sdk/platform"
 )
 
@@ -15,7 +16,7 @@ func (service *CustomerService) UpdateCustomer(
 	ctx *gin.Context,
 ) (*platform.Customer, error) {
 	var customer model.Customer
-	if err := ctx.BindJSON(&customer); err != nil {
+	if err := ctx.ShouldBindBodyWith(&customer, binding.JSON); err != nil {
 		log.Printf("Error while binding customer: %s", err)
 		return &platform.Customer{}, err
 	}
@@ -57,7 +58,7 @@ func createCustomerUpdateActions(
 	for index, ctAddress := range ctCustomer.Addresses {
 		customerUpdateActions = append(
 			customerUpdateActions,
-			createChangeAddressUpdateAction(*ctAddress.ID, customer.Addresses[index]),
+			createChangeAddressUpdateAction(*ctAddress.ID, *customer.Addresses[index]),
 		)
 	}
 
@@ -79,7 +80,7 @@ func createChangeAddressUpdateAction(ctCustomerAddressID string, customerAddress
 			"streetName": customerAddress.StreetName,
 			"city":       customerAddress.City,
 			"postalCode": customerAddress.PostalCode,
-			"country":    customerAddress.County,
+			"country":    customerAddress.Country,
 		},
 	}
 }
