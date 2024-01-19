@@ -12,7 +12,7 @@ type ValidationError struct {
 
 func NewValidationError(msg string, err error) *ValidationError {
 	return &ValidationError{
-		ErrCode: InternalErr,
+		ErrCode: ValidationErr,
 		Message: msg,
 		Err:     err,
 	}
